@@ -24,7 +24,7 @@ public class CartTest {
         cart.addRealItem(realItem2);
     }
 
-    @Test
+    @Test(groups = {"cart_tests"})
     public void checkTotalPrice() {
         assertEquals(32.4, cart.getTotalPrice(), "Cart total price is incorrect.");
     }

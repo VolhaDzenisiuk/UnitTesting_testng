@@ -19,7 +19,7 @@ class VirtualItemTest {
         virtualItem.setPrice(200);
     }
 
-    @Test
+    @Test(groups = {"virtual_item_tests"})
     public void checkToStringMethod() {
         String toString = virtualItem.toString();
         assertTrue(toString.contains("Size on disk: " + virtualItem.getSizeOnDisk()), "toString() method failed.");

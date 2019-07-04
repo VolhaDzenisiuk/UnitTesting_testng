@@ -22,7 +22,7 @@ public class RealItemTest {
         realitem.setWeight(1200);
     }
 
-    @Test
+    @Test(groups = {"real_item_tests"})
     public void checkRealItem() {
         assertEquals("Volvo", realitem.getName(), "Real item name is incorrect.");
         assertEquals(1520.0, realitem.getPrice(), "Real item price is incorrect.");

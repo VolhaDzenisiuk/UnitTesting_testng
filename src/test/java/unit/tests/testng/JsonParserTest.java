@@ -1,13 +1,9 @@
 package unit.tests.testng;
 
 import com.google.gson.Gson;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import parser.JsonParser;
-import shop.Cart;
-import shop.RealItem;
-import shop.VirtualItem;
+import org.testng.annotations.*;
+import parser.*;
+import shop.*;
 
 import java.io.File;
 
@@ -41,13 +37,13 @@ public class JsonParserTest {
         parser = new JsonParser();
     }
 
-    @Test
+    @Test(groups = {"json_parser_tests"})
     public void checkFileExists() {
         parser.writeToFile(cart);
         assertTrue(file.exists(), "File doesn't exist.");
     }
 
-    @Test
+    @Test(groups = {"json_parser_tests"})
     public void checkFileContent() {
         parser.writeToFile(cart);
         Cart actual_cart = parser.readFromFile(file);
@@ -55,6 +51,19 @@ public class JsonParserTest {
         String expected = "{\"cartName\":\"test-cart2\",\"realItems\":[{\"weight\":1200.0,\"name\":\"Volvo\",\"price\":1520.0}],\"virtualItems\":[{\"sizeOnDisk\":200.0,\"name\":\"Vista\",\"price\":1600.0}],\"total\":3744.0}";
         assertEquals(expected, actual, "Actual file content doesn't match expected content.");
     }
+
+    @DataProvider(name = "file-list")
+    public Object[][] dataProviderMethod() {
+        return new Object[][] { { "testFile1.json"}, {"testFile2.json"}, {"testFile3.json"}, {"testFile4.json"}, {"testFile5.json"} };
+    }
+
+    @Test(dataProvider = "file-list", groups = {"json_parser_tests"})
+    public void checkNoSuchFileException(String filename) {
+        assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File("src/main/resources/" + filename)));
+    }
+
+    @Test(enabled=false, groups = {"json_parser_tests", "disabled_tests"})
+    public void disabled_test() {    }
 
     @AfterTest
     void tearDown() {
