@@ -16,20 +16,22 @@ public class JsonParserTest {
     private File file;
     private final Gson gson = new Gson();
 
-    @BeforeTest
-    public void setUp() {
+    @BeforeTest(groups = {"json_parser_tests"})
+    @Parameters({"realItemName", "realItemPrice", "realItemWeight", "virtualItemName", "virtualItemPrice", "virtualItemSize"})
+    public void setUp(String realItemName, String realItemPrice, String realItemWeight, String virtualItemName, String virtualItemPrice, String virtualItemSize) {
+
         file = new File("src/main/resources/test-cart2.json");
         cart = new Cart("test-cart2");
 
         RealItem realItem = new RealItem();
-        realItem.setName("Volvo");
-        realItem.setPrice(1520);
-        realItem.setWeight(1200);
+        realItem.setName(realItemName);
+        realItem.setPrice(Double.parseDouble(realItemPrice));
+        realItem.setWeight(Double.parseDouble(realItemWeight));
 
         VirtualItem virtualItem = new VirtualItem();
-        virtualItem.setName("Vista");
-        virtualItem.setPrice(1600);
-        virtualItem.setSizeOnDisk(200);
+        virtualItem.setName(virtualItemName);
+        virtualItem.setPrice(Double.parseDouble(virtualItemPrice));
+        virtualItem.setSizeOnDisk(Double.parseDouble(virtualItemSize));
 
         cart.addRealItem(realItem);
         cart.addVirtualItem(virtualItem);
@@ -37,7 +39,7 @@ public class JsonParserTest {
         parser = new JsonParser();
     }
 
-    @Test(groups = {"json_parser_tests"})
+    @Test(enabled=false, groups = {"json_parser_tests", "disabled_tests"})
     public void checkFileExists() {
         parser.writeToFile(cart);
         assertTrue(file.exists(), "File doesn't exist.");
@@ -57,15 +59,12 @@ public class JsonParserTest {
         return new Object[][] { { "testFile1.json"}, {"testFile2.json"}, {"testFile3.json"}, {"testFile4.json"}, {"testFile5.json"} };
     }
 
-    @Test(dataProvider = "file-list", groups = {"json_parser_tests"})
-    public void checkNoSuchFileException(String filename) {
-        assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File("src/main/resources/" + filename)));
+    @Test(expectedExceptions = NoSuchFileException.class, dataProvider = "file-list", groups = {"json_parser_tests"})
+    public void checkNoSuchFileExceptionWithDataSet(String file) throws NoSuchFileException {
+        parser.readFromFile(new File("src/main/resources/" + file));
     }
 
-    @Test(enabled=false, groups = {"json_parser_tests", "disabled_tests"})
-    public void disabled_test() {    }
-
-    @AfterTest
+    @AfterTest(groups = {"json_parser_tests"})
     void tearDown() {
         file.delete();
     }
