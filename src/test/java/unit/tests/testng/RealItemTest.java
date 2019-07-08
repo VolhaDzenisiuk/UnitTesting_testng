@@ -13,7 +13,7 @@ public class RealItemTest {
     private RealItem realitem;
     private SoftAssert softAssertion;
 
-    @BeforeTest
+    @BeforeTest(groups = {"real_item_tests"})
     public void setUp() {
         softAssertion = new SoftAssert();
         realitem = new RealItem();
@@ -31,6 +31,6 @@ public class RealItemTest {
         softAssertion.assertAll();
     }
 
-    @AfterTest
+    @AfterTest(groups = {"real_item_tests"})
     void tearDown() {    }
 }

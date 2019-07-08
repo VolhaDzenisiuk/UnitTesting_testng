@@ -3,15 +3,15 @@ package unit.tests.testng;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
-
 import shop.VirtualItem;
 
-class VirtualItemTest {
+import static org.testng.Assert.assertTrue;
+
+public class VirtualItemTest {
 
     private VirtualItem virtualItem;
 
-    @BeforeTest
+    @BeforeTest(groups = {"virtual_item_tests"})
     public void setUp() {
         virtualItem = new VirtualItem();
         virtualItem.setName("Vista");
@@ -20,11 +20,11 @@ class VirtualItemTest {
     }
 
     @Test(groups = {"virtual_item_tests"})
-    public void checkToStringMethod() {
+    public void checkVirtualItem() {
         String toString = virtualItem.toString();
         assertTrue(toString.contains("Size on disk: " + virtualItem.getSizeOnDisk()), "toString() method failed.");
     }
 
-    @AfterTest
+    @AfterTest(groups = {"virtual_item_tests"})
     void tearDown() {    }
 }
