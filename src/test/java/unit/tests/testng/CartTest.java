@@ -12,7 +12,7 @@ public class CartTest {
 
     private Cart cart;
 
-    @BeforeTest(groups = {"cart_tests"})
+    @BeforeTest
     public void setUp() {
         cart = new Cart("test-cart");
         RealItem realItem1 = new RealItem();
@@ -20,7 +20,6 @@ public class CartTest {
 
         realItem1.setPrice(12);
         realItem2.setPrice(15);
-
         cart.addRealItem(realItem1);
         cart.addRealItem(realItem2);
     }
@@ -30,6 +29,6 @@ public class CartTest {
         assertEquals(32.4, cart.getTotalPrice(), "Cart total price is incorrect.");
     }
 
-    @AfterTest(groups = {"cart_tests"})
+    @AfterTest
     void tearDown() {    }
 }

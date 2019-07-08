@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name = "Run classes">
-    <test name = "run_classes">
+<suite name = "Suite1">
+    <test name = "test1">
         <classes>
             <class name = "unit.tests.testng.VirtualItemTest"/>
             <class name = "unit.tests.testng.RealItemTest"/>
