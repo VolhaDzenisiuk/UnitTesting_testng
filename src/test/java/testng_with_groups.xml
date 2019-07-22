@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Run groups">
+    <test name = "run_groups">
+        <groups>
+            <run>
+                <include name="real_item_tests"/>
+                <include name="virtual_item_tests"/>
+                <include name="cart_tests"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="unit.tests.testng.RealItemTest" />
+            <class name="unit.tests.testng.VirtualItemTest" />
+            <class name="unit.tests.testng.CartTest" />
+        </classes>
+    </test>
+</suite>
