@@ -5,15 +5,12 @@
     <test name = "run_groups">
         <groups>
             <run>
-                <include name="json_parser_tests"/>
                 <include name="real_item_tests"/>
-                <exclude name="virtual_item_tests"/>
-                <exclude name="cart_tests"/>
+                <include name="virtual_item_tests"/>
+                <include name="cart_tests"/>
             </run>
         </groups>
-
         <classes>
-            <class name="unit.tests.testng.JsonParserTest" />
             <class name="unit.tests.testng.RealItemTest" />
             <class name="unit.tests.testng.VirtualItemTest" />
             <class name="unit.tests.testng.CartTest" />

@@ -7,7 +7,6 @@
             <class name = "unit.tests.testng.VirtualItemTest"/>
             <class name = "unit.tests.testng.RealItemTest"/>
             <class name = "unit.tests.testng.CartTest"/>
-            <class name = "unit.tests.testng.JsonParserTest"/>
         </classes>
     </test>
 </suite>

@@ -1,13 +1,21 @@
 package unit.tests.testng;
 
 import com.google.gson.Gson;
-import org.testng.annotations.*;
-import parser.*;
-import shop.*;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.DataProvider;
+import parser.JsonParser;
+import parser.NoSuchFileException;
+import shop.Cart;
+import shop.RealItem;
+import shop.VirtualItem;
 
 import java.io.File;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class JsonParserTest {
 
@@ -16,7 +24,7 @@ public class JsonParserTest {
     private File file;
     private final Gson gson = new Gson();
 
-    @BeforeTest(groups = {"json_parser_tests"})
+    @BeforeTest(alwaysRun = true)
     @Parameters({"realItemName", "realItemPrice", "realItemWeight", "virtualItemName", "virtualItemPrice", "virtualItemSize"})
     public void setUp(String realItemName, String realItemPrice, String realItemWeight, String virtualItemName, String virtualItemPrice, String virtualItemSize) {
 
@@ -37,6 +45,11 @@ public class JsonParserTest {
         cart.addVirtualItem(virtualItem);
 
         parser = new JsonParser();
+    }
+
+    @AfterTest(alwaysRun = true)
+    void tearDown() {
+        file.delete();
     }
 
     @Test(enabled=false, groups = {"json_parser_tests", "disabled_tests"})
@@ -62,10 +75,5 @@ public class JsonParserTest {
     @Test(expectedExceptions = NoSuchFileException.class, dataProvider = "file-list", groups = {"json_parser_tests"})
     public void checkNoSuchFileExceptionWithDataSet(String file) throws NoSuchFileException {
         parser.readFromFile(new File("src/main/resources/" + file));
-    }
-
-    @AfterTest(groups = {"json_parser_tests"})
-    void tearDown() {
-        file.delete();
     }
 }

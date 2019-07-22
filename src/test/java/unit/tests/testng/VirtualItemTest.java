@@ -11,7 +11,7 @@ public class VirtualItemTest {
 
     private VirtualItem virtualItem;
 
-    @BeforeTest(groups = {"virtual_item_tests"})
+    @BeforeTest(alwaysRun = true)
     public void setUp() {
         virtualItem = new VirtualItem();
         virtualItem.setName("Vista");
@@ -19,12 +19,12 @@ public class VirtualItemTest {
         virtualItem.setPrice(200);
     }
 
+    @AfterTest(alwaysRun = true)
+    void tearDown() {    }
+
     @Test(groups = {"virtual_item_tests"})
     public void checkVirtualItem() {
         String toString = virtualItem.toString();
         assertTrue(toString.contains("Size on disk: " + virtualItem.getSizeOnDisk()), "toString() method failed.");
     }
-
-    @AfterTest(groups = {"virtual_item_tests"})
-    void tearDown() {    }
 }
